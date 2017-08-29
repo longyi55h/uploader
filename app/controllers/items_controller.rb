@@ -28,6 +28,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+        SendgridNotifier.sendmail.deliver
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render action: 'show', status: :created, location: @item }
       else
